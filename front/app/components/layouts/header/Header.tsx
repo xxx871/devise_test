@@ -59,9 +59,11 @@ const Header = async () => {
         </div>
         <pre>
         {JSON.stringify(resp.is_login, null, 2)}
+        {JSON.stringify(resp.status, null, 2)}
         </pre>
         <nav className="flex items-center gap-3">
-          {typeof resp.is_login === 'boolean' && resp.is_login ? (
+          {/* {typeof resp.is_login === 'boolean' && resp.is_login ? ( */}
+          {typeof resp.is_login === 'boolean' && resp.is_login  ? (
             <AuthClientButton
               bgColor="bg-blue-500"
               textColor="text-white"

@@ -59,6 +59,7 @@ export const useSignupForm = () => {
       }
 
       router.push("/");
+      router.refresh();
     } catch (error: any) {
       console.log(error.response);
     }
