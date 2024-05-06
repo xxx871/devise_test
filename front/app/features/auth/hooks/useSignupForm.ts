@@ -6,6 +6,7 @@ import { signUpFormSchema } from "../types/formSchema";
 import { z } from "zod";
 import { useRouter } from "next/navigation";
 import axios from "axios";
+import Cookies from "js-cookie";
 
 interface SignUpData {
   name: string;
@@ -27,6 +28,9 @@ export const useSignupForm = () => {
         email: data.email,
         password: data.password,
       });
+      Cookies.set("access-token", response.headers["access-token"]);
+      Cookies.set("client", response.headers["client"]);
+      Cookies.set("uid", response.headers["uid"]);
       return response.data;
     } catch (error) {
       throw error;

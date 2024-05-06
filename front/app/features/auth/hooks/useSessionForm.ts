@@ -1,4 +1,3 @@
-import Cookies from "js-cookie";
 import axios from 'axios';
 import { cookies } from "next/headers";
 
@@ -31,15 +30,6 @@ const getAllCookies = (): { [key: string]: string } => {
   return cookieObject;
 };
 
-// export const getSystemOverView = async (): Promise<{ [key: string]: string }> => {
-//   const cookie = getAllCookies();
-//   const response = await axiosInstance.get("auth/sessions", {
-//     headers: {
-//       uid: cookie.uid,
-//       client: cookie.client,
-//       "access-token": cookie.access-token
-//     }
-//   });
 export const getSystemOverView = async (): Promise<{ [key: string]: string }> => {
   const cookie = getAllCookies();
   const response = await axiosInstance.get("auth/sessions", {
