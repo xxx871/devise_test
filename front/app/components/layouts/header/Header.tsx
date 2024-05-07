@@ -5,6 +5,7 @@ import AuthClientButton from '@/app/features/auth/components/AuthClientButton';
 import { getSystemOverView } from '@/app/features/auth/hooks/useSessionForm';
 import Cookies from "js-cookie";
 import { cookies } from 'next/headers';
+import UserButton from '../../user-button';
 
 
 // const getAllCookies = (): string => {
@@ -81,8 +82,10 @@ const Header = async () => {
           </NextLink>
           )}
           <NextLink href="/skillCheck">スキルチェック</NextLink>
+          <UserButton />
         </nav>
       </div>
+
     </header>
   )
 }

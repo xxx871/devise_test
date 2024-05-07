@@ -1,7 +1,10 @@
 import Image from "next/image";
 import NextLink from "./components/elements/links/Link";
+import { auth } from "@/auth";
 
-export default function Home() {
+export default async function Home() {
+    const session = await auth();
+
   return (
 <section className="bg-white dark:bg-gray-900 mt-20 lg:mt-10">
     <div className="grid max-w-screen-xl px-4 py-8 mx-auto lg:gap-8 xl:gap-0 lg:py-16 lg:grid-cols-12">
@@ -14,7 +17,10 @@ export default function Home() {
         </div>
         <div className="lg:mt-0 lg:col-span-5 flex">
             <Image src="/sweets_cookie.png" alt="hero_logo" width={500} height={600}/>
-        </div>                
+        </div>
+        <pre>
+            {JSON.stringify(session, null, 2)}
+        </pre>
     </div>
 </section>
   );

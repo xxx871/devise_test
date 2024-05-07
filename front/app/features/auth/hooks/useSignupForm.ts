@@ -14,28 +14,28 @@ interface SignUpData {
   password: string;
 }
 
+const axiosInstance = axios.create({
+  baseURL: `http://localhost:3000/api/v1/`,
+});
+
+export const signUp = async (data: SignUpData) => {
+  try {
+    const response = await axiosInstance.post("auth", {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+    });
+    Cookies.set("access-token", response.headers["access-token"]);
+    Cookies.set("client", response.headers["client"]);
+    Cookies.set("uid", response.headers["uid"]);
+    return response.data;
+  } catch (error) {
+    throw error;
+  }
+};
+
 export const useSignupForm = () => {
   const router = useRouter();
-
-  const axiosInstance = axios.create({
-    baseURL: `http://localhost:3000/api/v1/`,
-  });
-
-  const signUp = async (data: SignUpData) => {
-    try {
-      const response = await axiosInstance.post("auth", {
-        name: data.name,
-        email: data.email,
-        password: data.password,
-      });
-      Cookies.set("access-token", response.headers["access-token"]);
-      Cookies.set("client", response.headers["client"]);
-      Cookies.set("uid", response.headers["uid"]);
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  };
 
   const form = useForm({
     mode: "onChange",
