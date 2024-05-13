@@ -49,6 +49,8 @@ const Header = async () => {
   console.log("aaa", resp);
   const res = getAllCookies();
   console.log("aaa", res);
+  const test = Math.random().toString(36).slice(-8);
+  console.log("test", test);
 
   return (
     <header>
@@ -60,7 +62,7 @@ const Header = async () => {
         </div>
         <pre>
         {JSON.stringify(resp.is_login, null, 2)}
-        {JSON.stringify(resp.status, null, 2)}
+        {/* {JSON.stringify(resp.data.name, null, 2)} */}
         </pre>
         <nav className="flex items-center gap-3">
           {/* {typeof resp.is_login === 'boolean' && resp.is_login ? ( */}

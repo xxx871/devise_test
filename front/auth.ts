@@ -1,11 +1,11 @@
 import axios from "axios";
 import NextAuth, { NextAuthConfig } from "next-auth";
 import github from "next-auth/providers/github";
-import Cookies from "js-cookie";
 
-const axiosInstance = axios.create({
-  baseURL: `http://host.docker.internal:3000/api/v1/`,
-});
+// API_ORIGIN=http://host.docker.internal:3000
+
+
+const apiUrl = "http:/localhost:3000";
 
 export const config: NextAuthConfig = {
   theme: {
@@ -17,31 +17,58 @@ export const config: NextAuthConfig = {
       clientSecret: process.env.AUTH_GITHUB_SECRET,
     }),
   ],
-  // basePath: "/api/auth",
+  basePath: "/api/auth",
   callbacks: {
-    async signIn({ user, account }) {
-      const provider = account?.provider;
-      const uid = user?.id;
-      const name = user?.name;
-      const email = user?.email;
-      try {
-        const response = await axios.post(`http://localhost:3000/auth/${provider}/callback`,
-          {provider,
-            uid,
-            name,
-            email,
-          }
-        );
-        if (response.status === 200) {
-          return true;
-        } else {
-          return false;
-        }
-      } catch (error) {
-        console.log(error);
-        return false;
-      }
-    },
+    session: async (session, token) => {
+      return Promise.resolve({
+        ...session,
+        accessToken: token.account.accessToken
+      })
+    }
+    // async signIn({ user, account }) {
+		// 	const provider = account?.provider;
+		// 	const uid = user?.id;
+		// 	const name = user?.name;
+		// 	const email = user?.email;
+		// 	try {
+		// 		const response = await axios.post(
+		// 			`${apiUrl}/auth`,
+		// 			{
+		// 				provider,
+		// 				uid,
+		// 				name,
+		// 				email,
+		// 			}
+		// 		);
+		// 		if (response.status === 200) {
+		// 			return true;
+		// 		} else {
+		// 			return false;
+		// 		}
+		// 	} catch (error) {
+		// 		console.log('エラー', error);
+		// 		return false;
+		// 	}
+		// },
+		// async signIn({ user, account }) {
+		// 	// const provider = account?.provider;
+		// 	// const uid = user?.id;
+		// 	const name = user?.name;
+		// 	const email = user?.email;
+    //   try {
+    //     const response = await axios.post("http://localhost:3000/api/v1/auth", {
+    //       // provider,
+    //       // uid,
+    //       name,
+    //       email,
+    //       password: Math.random().toString(36).slice(-8),
+    //     });
+    //     return response.data
+    //   } catch (error) {
+    //     console.log(error);
+    //     return false;
+    //   }
+    // },
   },
 };
 
