@@ -1,9 +1,9 @@
 import Image from "next/image";
 import NextLink from "./components/elements/links/Link";
-import { auth } from "@/auth";
+// import { auth } from "@/auth";
 
 export default async function Home() {
-    const session = await auth();
+    // const session = await auth();
 
   return (
 <section className="bg-white dark:bg-gray-900 mt-20 lg:mt-10">
@@ -19,8 +19,9 @@ export default async function Home() {
             <Image src="/sweets_cookie.png" alt="hero_logo" width={500} height={600}/>
         </div>
         <pre>
-            {JSON.stringify(session, null, 2)}
+            {JSON.stringify("session", null, 2)}
         </pre>
+
     </div>
 </section>
   );

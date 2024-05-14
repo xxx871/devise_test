@@ -87,7 +87,6 @@ const Header = async () => {
           <UserButton />
         </nav>
       </div>
-
     </header>
   )
 }

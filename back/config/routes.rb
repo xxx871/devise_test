@@ -1,7 +1,4 @@
 Rails.application.routes.draw do
-  post 'api/auth/:provider/callback', to: 'api/v1/auth/registrations#create'
-  post 'api/auth/signin/github', to: 'api/v1/auth/registrations#create'
-  post 'auth/:provider/callback', to: 'api/v1/users#create'
   resources :pages, only: [:index]
   namespace :api do
     namespace :v1 do
@@ -12,6 +9,7 @@ Rails.application.routes.draw do
 
       namespace :auth do
         resources :sessions, only: [:index]
+        post 'github', to: 'github#create'
       end
     end
   end
