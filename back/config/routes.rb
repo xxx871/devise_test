@@ -11,6 +11,10 @@ Rails.application.routes.draw do
         resources :sessions, only: [:index]
         post 'github', to: 'github#create'
       end
+
+      resource :user, only: [:show] do
+        resources :notes, only: [:index, :show]
+      end
     end
   end
 end

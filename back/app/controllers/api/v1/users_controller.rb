@@ -1,18 +1,28 @@
-class Api::V1::UsersController < ApplicationController
-  module Api
-    module V1
-      class Api::V1::UsersController < ApplicationController
-        def create
-          # 条件に該当するデータがあればそれを返す。なければ新規作成
-          user = User.find_or_create_by(provider: params[:provider], uid: params[:uid], name: params[:name], email: params[:email])                      
-          if user
-            head :ok
-          else
-            render json: { error: "ログインに失敗しました" }, status: :unprocessable_entity
-          end
-        rescue StandardError => e
-          render json: { error: e.message }, status: :internal_server_error
-        end
+module Api
+  module V1
+    class UsersController < ApplicationController
+      before_action :authenticate_api_v1_user!
+
+      def show
+        @user = current_api_v1_user
+        render json: {
+          id: @user.id,
+          name: @user.name,
+          email: @user.email,
+          gender: @user.gender,
+          created_at: @user.created_at,
+          updated_at: @user.updated_at,
+          user_high_note: @user.high_note,
+          user_low_note: @user.low_note,
+          scores: @user.scores.map { |score| 
+            {
+              id: score.id,
+              mode: score.mode.name,
+              difficulty: score.difficulty.name,
+              score: score.score
+            }
+          }
+        }
       end
     end
   end

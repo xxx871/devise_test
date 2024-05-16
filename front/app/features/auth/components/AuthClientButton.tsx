@@ -23,6 +23,7 @@ const AuthClientButton = ({
   const router = useRouter();
   const handleSignOut = async() => {
     await signOut();
+    router.push("/");
     router.refresh();
   };
 

@@ -44,13 +44,10 @@ const getAllCookies = (): string => {
 
 
 const Header = async () => {
-  // const session = await getSession();
   const resp = await getSystemOverView();
-  console.log("aaa", resp);
-  const res = getAllCookies();
-  console.log("aaa", res);
-  const test = Math.random().toString(36).slice(-8);
-  console.log("test", test);
+  console.log("is_login", resp.is_login);
+  // const res = getAllCookies();
+  // console.log("aaa", res);
 
   return (
     <header>
@@ -61,12 +58,11 @@ const Header = async () => {
           </Link>
         </div>
         <pre>
-        {JSON.stringify(resp.is_login, null, 2)}
-        {/* {JSON.stringify(resp.data.name, null, 2)} */}
+          {JSON.stringify(resp.is_login, null, 2)}
+          {/* {JSON.stringify(resp.data, null, 2)} */}
         </pre>
         <nav className="flex items-center gap-3">
-          {/* {typeof resp.is_login === 'boolean' && resp.is_login ? ( */}
-          {typeof resp.is_login === 'boolean' && resp.is_login  ? (
+          {resp.is_login ? (
             <AuthClientButton
               bgColor="bg-blue-500"
               textColor="text-white"
@@ -81,14 +77,14 @@ const Header = async () => {
               textColor="text-white"
             >
               ログイン
-          </NextLink>
+            </NextLink>
           )}
-          <NextLink href="/skillCheck">スキルチェック</NextLink>
+          <NextLink href="/profile">マイページ</NextLink>
           <UserButton />
         </nav>
       </div>
     </header>
-  )
-}
+  );
+};
 
 export default Header;
