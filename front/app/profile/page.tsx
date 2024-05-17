@@ -5,16 +5,6 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import { User } from "../components/types";
 
-// interface SystemOverviewData {
-//   name: string;
-//   // 他のプロパティも必要に応じて追加してください
-// }
-
-// // interface SystemOverviewResponse {
-// //   data: SystemOverviewData;
-// //   is_login: boolean;
-// // }
-
 export const axiosInstance = axios.create({
   baseURL: `http://host.docker.internal:3000/api/v1/`,
 });
@@ -49,9 +39,39 @@ const getSession = async (): Promise<User | null> => {
   }
 }
 
+const getUserData = async () => {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('access-token')?.value;
+  const client = cookieStore.get('client')?.value;
+  const uid = cookieStore.get('uid')?.value;
+
+  if(!accessToken || !client || !uid) {
+    return null;
+  }
+
+  try {
+    const response = await axiosInstance.get('user', {
+      headers: {
+        uid: uid,
+        client: client,
+        "access-token": accessToken
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    return null;
+  }
+};
+
 export default async function ProfilePage() {
-  const userSession = await getSession();
-  console.log("ユーザー情報", userSession);
+  // const userSession = await getSession();
+  // console.log("ユーザー情報", userSession);
+  // const cookieStore = cookies();
+  // console.log("Store", cookieStore)
+
+  const userSession = await getUserData();
+  console.log("userSession", userSession)
   
   if (!userSession) {
     // Handle missing session: redirect to login page or show an error message
@@ -73,19 +93,19 @@ export default async function ProfilePage() {
       
       <div className="bg-white shadow-md rounded p-4">
         <div className="flex items-center">
-          <h2 className="text-lg font-semibold mb-2">性別：{gender.name}</h2>
+          <h2 className="text-lg font-semibold mb-2">性別：{gender}</h2>
         </div>
       </div>
       
       <div className="bg-white shadow-md rounded p-4">
         <div className="flex items-center">
-          <h2 className="text-lg font-semibold mb-2">音域高：{highNote.name} ({highNote.frequency} Hz)</h2>
+          <h2 className="text-lg font-semibold mb-2">音域高：{highNote} (Hz)</h2>
         </div>
       </div>
       
       <div className="bg-white shadow-md rounded p-4">
         <div className="flex items-center">
-          <h2 className="text-lg font-semibold mb-2">音域低：{lowNote.name} ({lowNote.frequency} Hz)</h2>
+          <h2 className="text-lg font-semibold mb-2">音域低：{lowNote} (Hz)</h2>
         </div>
       </div>
       
