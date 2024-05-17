@@ -5,6 +5,14 @@ import axios from "axios";
 import { redirect } from "next/navigation";
 import { User } from "../components/types";
 
+export interface Score {
+  id: number;
+  mode: string;
+  difficulty: string;
+  score: number;
+}
+
+
 export const axiosInstance = axios.create({
   baseURL: `http://host.docker.internal:3000/api/v1/`,
 });
@@ -112,7 +120,7 @@ export default async function ProfilePage() {
       <div className="bg-white shadow-md rounded p-4">
         <h2 className="text-lg font-semibold mb-2">スコア</h2>
         <ul>
-          {scores.map((score) => (
+          {scores.map((score: Score) => (
             <li key={score.id} className="mb-2">
               <div className="flex items-center">
                 <h3 className="text-md font-semibold mr-2">モード：</h3>
