@@ -7,6 +7,7 @@ interface InputFieldProps {
   type: string;
   placeholder: string;
   errorMessage: string | undefined;
+  defaultValue?: any;
   register: UseFormRegister<any>;
 }
 
@@ -16,6 +17,7 @@ const InputField = ({
   type,
   placeholder,
   errorMessage,
+  defaultValue,
   register
 }: InputFieldProps) => {
   return (
@@ -25,6 +27,7 @@ const InputField = ({
         type={type}
         id={id}
         placeholder={placeholder}
+        defaultValue={defaultValue}
         className="bg-white border border-gray-300 text-gray-900 text-sm rounded-sm focus:border-blue-500 w-full p-2.5"
         {...register(id)}
       />

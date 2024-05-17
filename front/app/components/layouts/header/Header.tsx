@@ -58,8 +58,9 @@ const Header = async () => {
           </Link>
         </div>
         <pre>
-          {JSON.stringify(resp.is_login, null, 2)}
-          {/* {JSON.stringify(resp.data, null, 2)} */}
+          {/* {JSON.stringify(resp.is_login, null, 2)}
+          {JSON.stringify(resp.data, null, 2)}
+          {JSON.stringify(resp, null, 2)} */}
         </pre>
         <nav className="flex items-center gap-3">
           {resp.is_login ? (

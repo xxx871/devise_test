@@ -36,24 +36,13 @@
 // // };
 
 import axios from "axios";
-import Cookies from "js-cookie"; // クライアント側でのみ利用可能なCookieライブラリ
+import Cookies from "js-cookie";
 
 const axiosInstance = axios.create({
   baseURL: `http://localhost:3000/api/v1/`,
 });
 
-// クライアント側でのみクッキーを取得する関数
-// const getAllCookiesClientSide = (): { [key: string]: string } => {
-//   return {
-//   const accessToken = Cookies.get("access-token") || '',
-//   const client = Cookies.get("client") || '',
-//   const uid = Cookies.get("uid") || ''
-//   };
-// };
-
 export const signOut = async () => {
-  // クライアント側でのみクッキーを取得
-  //const cookie = getAllCookiesClientSide();
   const accessToken = Cookies.get("access-token") || '';
   const client = Cookies.get("client") || '';
   const uid = Cookies.get("uid") || '';
