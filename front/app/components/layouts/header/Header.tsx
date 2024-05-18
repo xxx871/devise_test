@@ -6,6 +6,7 @@ import { getSystemOverView } from '@/app/features/auth/hooks/useSessionForm';
 import Cookies from "js-cookie";
 import { cookies } from 'next/headers';
 import UserButton from '../../user-button';
+import ModalTrigger from '../../ModalTrigger';
 
 
 // const getAllCookies = (): string => {
@@ -80,6 +81,7 @@ const Header = async () => {
               ログイン
             </NextLink>
           )}
+          <ModalTrigger />
           <NextLink href="/profile">マイページ</NextLink>
           <UserButton />
         </nav>

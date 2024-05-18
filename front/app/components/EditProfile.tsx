@@ -4,6 +4,7 @@ import React from 'react'
 import InputField from '../features/auth/components/InputField';
 import Button from '../features/auth/components/Button';
 import { useEditForm } from '../features/auth/hooks/useEditForm';
+import ModalTrigger from './ModalTrigger1';
 
 interface User {
   name: string;
@@ -64,7 +65,7 @@ const EditProfile: React.FC<EditProfileProps> = ({ user }) => {
           errorMessage={errors.user_low_note?.message}
           register={register}
         />
-
+<ModalTrigger />
       <div className="mt-4">
       <Button type="submit" textColor="text-white" bgColor="bg-blue-500">保存</Button>
       </div>
