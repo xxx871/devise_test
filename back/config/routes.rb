@@ -12,9 +12,8 @@ Rails.application.routes.draw do
         post 'github', to: 'github#create'
       end
 
-      resource :user, only: [:show, :update] do
-        resources :notes, only: [:index, :show]
-      end
+      resource :user, only: [:show, :update]
+      resources :notes, only: [:index, :show]
     end
   end
 end
