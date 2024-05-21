@@ -68,6 +68,30 @@ module Api
         end
       end
 
+      def random_note
+        user = current_api_v1_user
+        high_note = user.high_notes.first
+        low_note = user.low_notes.first
+
+        if high_note && low_note
+          notes = Note.where(id: low_note.id..high_note.id).where.not("name LIKE ?", "%#%")
+        elsif user.gender
+          gender_id = user.gender_id
+          gender_high_note = GenderHighNote.find_by(gender_id: gender_id)
+          gender_low_note = GenderLowNote.find_by(gender_id: gender_id)
+          if gender_high_note && gender_low_note
+            notes = Note.where(id: gender_low_note.note_id..gender_high_note.note_id).where.not("name LIKE ?", "%#%")
+          else
+            render json: { error: 'Gender note range not set' }, status: :unprocessable_entity and return
+          end
+        else
+          render json: { error: 'User note range or gender not set' }, status: :unprocessable_entity and return
+        end
+
+        random_note = notes.sample
+        render json: random_note
+      end
+
       private
 
       def user_params

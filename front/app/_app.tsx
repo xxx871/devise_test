@@ -1,17 +1,9 @@
 // pages/_app.tsx
+import '../styles/globals.css';
+import type { AppProps } from 'next/app';
 
-import { AppProps } from 'next/app';
-import RootLayout from './layout';
-import { withAuthServerSideProps } from '@/lib/auth';
-
-const MyApp = ({ Component, pageProps }) => {
-  return (
-    <RootLayout>
-      <Component {...pageProps} />
-    </RootLayout>
-  );
-};
-
-export const getServerSideProps = withAuthServerSideProps("/api/v1/auth/session");
+function MyApp({ Component, pageProps }: AppProps) {
+  return <Component {...pageProps} />;
+}
 
 export default MyApp;

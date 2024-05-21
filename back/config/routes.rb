@@ -12,8 +12,20 @@ Rails.application.routes.draw do
         post 'github', to: 'github#create'
       end
 
-      resource :user, only: [:show, :update]
-      resources :notes, only: [:index, :show]
+      resource :user, only: [:show, :update] do
+        collection do
+          get 'random_note', to: 'users#random_note'
+        end
+      end
+      resources :notes, only: [:index, :show] do
+        collection do
+          get 'random_note', to: 'notes#random_note'
+        end
+      end
+      resources :scores, only: [:create]
+      resources :difficulties, only: [:index]
+      resources :genders, only: [:index]
+      resources :modes, only: [:index]
     end
   end
 end
